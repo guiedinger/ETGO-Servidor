@@ -18,7 +18,7 @@ public class PassageiroDAO extends GenericDAO<Integer, Passageiro>{
 	@SuppressWarnings("unchecked")
 	public List<Passageiro> listarPassageiros(){
 		this.em.getTransaction().begin();
-		Query consulta = this.em.createQuery("Select passageiro from passageiro");
+		Query consulta = this.em.createQuery("Select p from passageiro p");
 		List<Passageiro> passageiros = consulta.getResultList();
 		this.em.getTransaction().commit();
 		return passageiros;
