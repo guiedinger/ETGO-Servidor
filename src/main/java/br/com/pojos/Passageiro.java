@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -84,13 +85,6 @@ public class Passageiro extends Usuario implements Serializable{
 	}
 
 	public void setTipo(TipoPassageiro tipo) {
-		this.tipo = tipo;
-	}
-
-	public Passageiro(Integer idUsuario, String nome, String login, String password, String telefone, String email,
-			Double saldo, String cpf, TipoPassageiro tipo) {
-		super(idUsuario, nome, login, password, telefone, email, saldo);
-		this.cpf = cpf;
 		this.tipo = tipo;
 	}
 

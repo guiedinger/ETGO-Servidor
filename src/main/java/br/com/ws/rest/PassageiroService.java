@@ -61,7 +61,7 @@ public class PassageiroService {
 	public Response cadastrar(Passageiro passageiro){
 		try {
 			sem.getEntityManager().getTransaction().begin();
-			passageiro = pDAO.save(passageiro);
+			pDAO.create(passageiro);
 			sem.getEntityManager().getTransaction().commit();
 			return Response.status(200).entity(passageiro).build();
 		} catch (Exception e) {

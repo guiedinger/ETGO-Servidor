@@ -18,7 +18,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-
 @Entity
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 @DiscriminatorColumn(name="TIPO_USUARIO")
@@ -128,25 +127,10 @@ public abstract class Usuario implements Serializable{
 		this.email = email;
 	}
 
-	
-	
 	public Usuario(Integer idUsuario, String nome, String login, String password, String telefone, String email,
 			Double saldo) {
 		super();
 		this.idUsuario = idUsuario;
-		this.nome = nome;
-		this.login = login;
-		this.password = password;
-		this.telefone = telefone;
-		this.email = email;
-		this.saldo = saldo;
-	}
-
-	public Usuario(Integer idUsuario, List<Cartao> cartao, String nome, String login, String password, String telefone,
-			String email, Double saldo) {
-		super();
-		this.idUsuario = idUsuario;
-		this.cartao = cartao;
 		this.nome = nome;
 		this.login = login;
 		this.password = password;
