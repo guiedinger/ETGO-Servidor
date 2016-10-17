@@ -50,7 +50,7 @@ public abstract class Usuario implements Serializable{
 	@Column(name = "LOGIN", nullable = false, unique = true)
 	private String login;
 	
-	@Column(name = "PASSWORD", nullable = false, unique = true)
+	@Column(name = "PASSWORD", nullable = false)
 	private String password;
 	
 	@Column(name = "TELEFONE", nullable = false)
