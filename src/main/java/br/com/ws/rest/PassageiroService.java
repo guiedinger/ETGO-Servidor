@@ -2,12 +2,15 @@ package br.com.ws.rest;
 
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import br.com.dao.PassageiroDAO;
 import br.com.dao.SimpleEntityManager;
@@ -50,6 +53,19 @@ public class PassageiroService {
 			return passageiros;
 		} catch (Exception e) {
 			throw new WebApplicationException(exceptionNumber);
+		}
+	}	
+	
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response cadastrar(Passageiro passageiro){
+		try {
+			sem.getEntityManager().getTransaction().begin();
+			passageiro = pDAO.save(passageiro);
+			sem.getEntityManager().getTransaction().commit();
+			return Response.status(200).entity(passageiro).build();
+		} catch (Exception e) {
+			throw new WebApplicationException(500);
 		}
 	}
 	

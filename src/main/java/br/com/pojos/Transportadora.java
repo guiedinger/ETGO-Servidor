@@ -52,12 +52,13 @@ public class Transportadora extends Usuario{
 		this.cnpj = cnpj;
 	}
 
-
-	
-	public Transportadora(Integer idUsuario, String nome, String login, String telefone, String email, Conta conta,
-			String cnpj) {
-		super(idUsuario, nome, login, telefone, email, conta);
+	public Transportadora(Integer idUsuario, String nome, String login, String password, String telefone, String email,
+			Double saldo, String cnpj, List<Onibus> onibus, List<Motorista> motoristas, List<Linha> linhas) {
+		super(idUsuario, nome, login, password, telefone, email, saldo);
 		this.cnpj = cnpj;
+		this.onibus = onibus;
+		this.motoristas = motoristas;
+		this.linhas = linhas;
 	}
 
 	public Transportadora(){

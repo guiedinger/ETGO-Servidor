@@ -54,11 +54,55 @@ public class Passageiro extends Usuario implements Serializable{
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
+	
+	public List<Avaliacao> getAvaliacao() {
+		return avaliacao;
+	}
 
-	public Passageiro(Integer idUsuario, String nome,String login, String telefone, String email, Conta conta,
-			String cpf) {
-		super(idUsuario, nome, login, telefone, email, conta);
+	public void setAvaliacao(List<Avaliacao> avaliacao) {
+		this.avaliacao = avaliacao;
+	}
+
+	public List<Transacao> getTransacao() {
+		return transacao;
+	}
+
+	public void setTransacao(List<Transacao> transacao) {
+		this.transacao = transacao;
+	}
+
+	public List<Viagem> getViagens() {
+		return viagens;
+	}
+
+	public void setViagens(List<Viagem> viagens) {
+		this.viagens = viagens;
+	}
+
+	public TipoPassageiro getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(TipoPassageiro tipo) {
+		this.tipo = tipo;
+	}
+
+	public Passageiro(Integer idUsuario, String nome, String login, String password, String telefone, String email,
+			Double saldo, String cpf, TipoPassageiro tipo) {
+		super(idUsuario, nome, login, password, telefone, email, saldo);
 		this.cpf = cpf;
+		this.tipo = tipo;
+	}
+
+	public Passageiro(Integer idUsuario, String nome, String login, String password, String telefone, String email,
+			Double saldo, String cpf, List<Avaliacao> avaliacao, List<Transacao> transacao, List<Viagem> viagens,
+			TipoPassageiro tipo) {
+		super(idUsuario, nome, login, password, telefone, email, saldo);
+		this.cpf = cpf;
+		this.avaliacao = avaliacao;
+		this.transacao = transacao;
+		this.viagens = viagens;
+		this.tipo = tipo;
 	}
 
 	public Passageiro(){
