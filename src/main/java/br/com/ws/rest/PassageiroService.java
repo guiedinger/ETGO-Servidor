@@ -1,4 +1,4 @@
-package br.com.ws.rest;
+ package br.com.ws.rest;
 
 import java.util.List;
 
