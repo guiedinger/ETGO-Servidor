@@ -34,23 +34,15 @@ public abstract class Usuario implements Serializable{
 	@Column(name = "ID_USUARIO")
 	private Integer idUsuario;
 	
-//	@OneToOne(cascade = CascadeType.ALL, optional = false,
-//			fetch = FetchType.EAGER, orphanRemoval = true)
-//	@JoinColumn(name = "ID_CONTA")
-//	private Conta conta;
+    @OneToOne(mappedBy = "usuario")
+	private Login login;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@JoinColumn(name = "ID_USUARIO", nullable = true)
 	private List<Cartao> cartao;
 	
 	@Column(name = "NOME", nullable = false)
 	private String nome;
-	
-	@Column(name = "LOGIN", nullable = false, unique = true)
-	private String login;
-	
-	@Column(name = "PASSWORD", nullable = false)
-	private String password;
 	
 	@Column(name = "TELEFONE", nullable = false)
 	private String telefone;
@@ -69,22 +61,6 @@ public abstract class Usuario implements Serializable{
 
 	public void setCartao(List<Cartao> cartao) {
 		this.cartao = cartao;
-	}
-
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public Double getSaldo() {
@@ -127,13 +103,11 @@ public abstract class Usuario implements Serializable{
 		this.email = email;
 	}
 
-	public Usuario(Integer idUsuario, String nome, String login, String password, String telefone, String email,
+	public Usuario(Integer idUsuario, String nome, String telefone, String email,
 			Double saldo) {
 		super();
 		this.idUsuario = idUsuario;
 		this.nome = nome;
-		this.login = login;
-		this.password = password;
 		this.telefone = telefone;
 		this.email = email;
 		this.saldo = saldo;

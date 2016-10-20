@@ -33,11 +33,11 @@ public class Passageiro extends Usuario implements Serializable{
 	@Column(name = "CPF", unique = true, nullable = false)
 	private String cpf;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_PASSAGEIRO")
 	private List <Avaliacao> avaliacao;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_PASSAGEIRO")
 	private List <Transacao> transacao;
 	
@@ -88,10 +88,10 @@ public class Passageiro extends Usuario implements Serializable{
 		this.tipo = tipo;
 	}
 
-	public Passageiro(Integer idUsuario, String nome, String login, String password, String telefone, String email,
+	public Passageiro(Integer idUsuario, String nome, String telefone, String email,
 			Double saldo, String cpf, List<Avaliacao> avaliacao, List<Transacao> transacao, List<Viagem> viagens,
 			TipoPassageiro tipo) {
-		super(idUsuario, nome, login, password, telefone, email, saldo);
+		super(idUsuario, nome, telefone, email, saldo);
 		this.cpf = cpf;
 		this.avaliacao = avaliacao;
 		this.transacao = transacao;
