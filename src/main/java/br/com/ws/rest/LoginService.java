@@ -24,6 +24,34 @@ public class LoginService {
 	LoginDAO lDAO = new LoginDAO(sem.getEntityManager());
 	
 	
+	@GET
+	@Produces
+	public List<Login> listar(){
+		int exception = 500;
+		try {
+			List<Login> logins = lDAO.listarLogins();
+			if(logins.isEmpty()){
+				exception = 404;
+				throw new Exception("Nenhum login cadastrado!");
+			}
+			return logins;
+		} catch (Exception e) {
+			throw new WebApplicationException(exception);
+		}
+	}
+	
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response cadastrar(Login login){
+		try {
+			sem.getEntityManager().getTransaction().begin();
+			lDAO.create(login);
+			sem.getEntityManager().getTransaction().commit();
+			return Response.status(200).entity(login).build();
+		} catch (Exception e) {
+			throw new WebApplicationException(500);
+		}
+	}
 	
 	
 }
