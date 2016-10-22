@@ -58,14 +58,15 @@ public class PassageiroService {
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response cadastrar(Passageiro passageiro){
+	public Response cadastrar(Passageiro passageiro) throws Exception{
 		try {
 			sem.getEntityManager().getTransaction().begin();
 			pDAO.create(passageiro);
 			sem.getEntityManager().getTransaction().commit();
 			return Response.status(200).entity(passageiro).build();
 		} catch (Exception e) {
-			throw new WebApplicationException(500);
+			sem.rollback();
+			return Response.serverError().entity(e).build();
 		}
 	}
 	
