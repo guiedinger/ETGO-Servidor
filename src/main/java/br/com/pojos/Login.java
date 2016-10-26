@@ -6,12 +6,12 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -19,6 +19,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
+@NamedQueries({
+	@NamedQuery(name = "buscar_token_por_conteudo", query = "select l from Login l where l.token LIKE :token"),
+    @NamedQuery(name = "listar_todos_logins", query = "SELECT l FROM Login l"),
+    @NamedQuery(name = "buscar_login_por_nome", query = "SELECT l FROM Login l WHERE LOWER(l.userName) LIKE :userName"),
+    @NamedQuery(name = "autenticar_login", query = "SELECT l FROM Login l WHERE LOWER(l.userName) LIKE :userName"),
+    @NamedQuery(name = "verificar_existencia_login", query = "SELECT COUNT(l.userName) FROM Login l WHERE l.userName LIKE :userName")
+})
 @Table(name = "LOGIN")
 public class Login implements Serializable {
 

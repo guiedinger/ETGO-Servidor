@@ -65,7 +65,6 @@ public class PassageiroService {
 			sem.getEntityManager().getTransaction().commit();
 			return Response.status(200).entity(passageiro).build();
 		} catch (Exception e) {
-			sem.rollback();
 			return Response.serverError().entity(e).build();
 		}
 	}

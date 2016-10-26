@@ -1,13 +1,18 @@
 package br.com.ws.rest;
 
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.util.List;
+import java.util.Random;
 
+import javax.persistence.Query;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -41,13 +46,34 @@ public class LoginService {
 	}
 	
 	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public Response autenticarLogin(@FormParam("userName") String userName,
+									@FormParam("password") String password){
+		try {
+			Login l = lDAO.login(userName, password);
+			l = lDAO.gerarToken(l);
+			sem.getEntityManager().getTransaction().begin();
+			lDAO.save(l);
+			sem.getEntityManager().getTransaction().commit();
+			return Response.ok().encoding("UTF-8").header("Authentication", "Bearer " + l.getToken()).entity(l).build();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+            return Response.status(Response.Status.BAD_REQUEST).entity(null).build();
+		}
+	}
+	
+	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response cadastrar(Login login){
 		try {
+			login = lDAO.gerarToken(login);
+
 			sem.getEntityManager().getTransaction().begin();
 			lDAO.create(login);
 			sem.getEntityManager().getTransaction().commit();
-			return Response.status(200).entity(login).build();
+			
+			return	Response.ok(login).header("Authorization", "Bearer "+ login.getToken()).build();
 		} catch (Exception e) {
 			throw new WebApplicationException(500);
 		}
