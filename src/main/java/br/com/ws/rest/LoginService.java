@@ -53,13 +53,15 @@ public class LoginService {
 		try {
 			Login l = lDAO.login(userName, password);
 			l = lDAO.gerarToken(l);
+
+			
 			sem.getEntityManager().getTransaction().begin();
 			lDAO.save(l);
 			sem.getEntityManager().getTransaction().commit();
 			return Response.ok().encoding("UTF-8").header("Authentication", "Bearer " + l.getToken()).entity(l).build();
 		} catch (Exception ex) {
-			ex.printStackTrace();
-            return Response.status(Response.Status.BAD_REQUEST).entity(null).build();
+//			ex.printStackTrace();
+            return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
 		}
 	}
 	
