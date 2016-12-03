@@ -34,6 +34,7 @@ public class LoginDAO extends GenericDAO<Integer, Login> {
 			throw new Exception("Login não existe no sistema.");
 		}
 		if(!password.equals(l.getPassword())){
+			System.out.println("Senha incorreta..");
 			throw new Exception("Senha incorreta.");
 		}
 		return l;

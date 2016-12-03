@@ -30,7 +30,7 @@ public class LoginService {
 	
 	
 	@GET
-	@Produces
+	@Produces(MediaType.APPLICATION_JSON)
 	public List<Login> listar(){
 		int exception = 500;
 		try {
@@ -67,6 +67,7 @@ public class LoginService {
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response cadastrar(Login login){
 		try {
 			login = lDAO.gerarToken(login);
@@ -77,6 +78,7 @@ public class LoginService {
 			
 			return	Response.ok(login).header("Authorization", "Bearer "+ login.getToken()).build();
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new WebApplicationException(500);
 		}
 	}
