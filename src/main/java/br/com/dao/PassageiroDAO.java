@@ -7,6 +7,7 @@ import javax.persistence.Query;
 
 
 import br.com.pojos.Passageiro;
+import br.com.pojos.Token;
 
 public class PassageiroDAO extends GenericDAO<Integer, Passageiro>{
 
@@ -30,5 +31,37 @@ public class PassageiroDAO extends GenericDAO<Integer, Passageiro>{
 		this.em.getTransaction().commit();
 		return passageiro;
 	}
+	
+	public Passageiro criarPassageiro (Passageiro passageiro) throws Exception {
+        try {
+        	if (!verificarExistenciaEmail(passageiro.getEmail())) {
+        		throw new Exception("Email já existente no sistema.");
+        	}
+        	Token tk = new Token();
+        	//passageiro.setPassword();
+        	passageiro.setToken(tk);
+        	passageiro.setSaldo(0.0);
+        	tk.setUsuario(passageiro);
+        	
+        	this.em.getTransaction().begin();
+        	passageiro = this.save(passageiro);
+        	this.em.getTransaction().commit();
+			
+        	return passageiro;
+		} catch (Exception e) {
+			throw e;
+		}   
+	}
+	
+    public boolean verificarExistenciaEmail(String email) {
+        Query consulta = this.em.createNamedQuery("verificar_existencia_email_passageiro");
+        consulta.setParameter("email", email);
+
+        try {
+            return ((long) consulta.getSingleResult()) == 0;
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 
 }

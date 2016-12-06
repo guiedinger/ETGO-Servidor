@@ -45,9 +45,9 @@ public class Empresa extends Usuario implements Serializable{
 		this.cnpj = cnpj;
 	}
 
-	public Empresa(Integer idUsuario, String nome, String telefone, String email,
-			Double saldo, String cnpj, List<Passageiro> passageiro, List<Transacao> transacao) {
-		super(idUsuario, nome, telefone, email, saldo);
+	public Empresa(Integer idUsuario, String userName, String password, Token token, String nome, String telefone,
+			String email, Double saldo, String cnpj, List<Passageiro> passageiro, List<Transacao> transacao) {
+		super(idUsuario, userName, password, token, nome, telefone, email, saldo);
 		this.cnpj = cnpj;
 		this.passageiro = passageiro;
 		this.transacao = transacao;

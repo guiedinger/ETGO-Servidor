@@ -13,7 +13,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.ext.Provider;
 
-import br.com.dao.LoginDAO;
+import br.com.dao.TokenDAO;
 import br.com.dao.SimpleEntityManager;
 
 @Secured
@@ -25,7 +25,7 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 	
 	@Override
 	public void filter(ContainerRequestContext requestContext) throws IOException{
-		LoginDAO lDAO = new LoginDAO(sem.getEntityManager());
+		TokenDAO lDAO = new TokenDAO(sem.getEntityManager());
 		
         String authHeader = requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
         

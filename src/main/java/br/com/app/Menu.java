@@ -13,10 +13,10 @@ public class Menu {
 		SimpleEntityManager sem = SimpleEntityManager.getInstance();
 		PassageiroDAO pDAO = new PassageiroDAO(sem.getEntityManager());
 	
-		Passageiro p1 = new Passageiro(0,"Guilhermee","2467878","guilherme@edinger.co.br",200.0000,"98213231742",null,null,null,TipoPassageiro.ANTECIPADO);
+		//Passageiro p1 = new Passageiro(0,"Guilhermee","2467878","guilherme@edinger.co.br",200.0000,"98213231742",null,null,null,TipoPassageiro.ANTECIPADO);
 
 		sem.beginTransaction();
-		pDAO.save(p1);
+		//pDAO.save(p1);
 		sem.commit();
 		sem.close();
 

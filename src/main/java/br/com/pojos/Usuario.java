@@ -1,6 +1,5 @@
 package br.com.pojos;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -21,6 +20,7 @@ import javax.persistence.Table;
 @Entity
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 @DiscriminatorColumn(name="TIPO_USUARIO")
+
 @Table(name = "USUARIO")
 public abstract class Usuario implements Serializable{
 
@@ -34,8 +34,15 @@ public abstract class Usuario implements Serializable{
 	@Column(name = "ID_USUARIO")
 	private Integer idUsuario;
 	
-    @OneToOne(mappedBy = "usuario")
-	private Login login;
+	@Column(name = "USER_NAME",unique = true ,nullable = false)
+	private String userName;
+	
+	@Column(name = "PASSWORD", nullable = false)
+	private String password;
+	
+	@OneToOne(fetch = FetchType.LAZY, targetEntity = Token.class, cascade = CascadeType.ALL, optional = false)
+    @JoinColumn(name = "ID_TOKEN")
+	private Token token;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@JoinColumn(name = "ID_USUARIO", nullable = true)
@@ -103,10 +110,39 @@ public abstract class Usuario implements Serializable{
 		this.email = email;
 	}
 
-	public Usuario(Integer idUsuario, String nome, String telefone, String email,
-			Double saldo) {
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Token getToken() {
+		return token;
+	}
+
+	public void setToken(Token token) {
+		this.token = token;
+	}
+
+	
+	
+	public Usuario(Integer idUsuario, String userName, String password, Token token, String nome, String telefone,
+			String email, Double saldo) {
 		super();
 		this.idUsuario = idUsuario;
+		this.userName = userName;
+		this.password = password;
+		this.token = token;
 		this.nome = nome;
 		this.telefone = telefone;
 		this.email = email;

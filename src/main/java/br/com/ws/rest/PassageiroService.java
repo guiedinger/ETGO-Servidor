@@ -58,12 +58,11 @@ public class PassageiroService {
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response cadastrar(Passageiro passageiro) throws Exception{
 		try {
-			sem.getEntityManager().getTransaction().begin();
-			pDAO.create(passageiro);
-			sem.getEntityManager().getTransaction().commit();
-			return Response.status(200).entity(passageiro).build();
+			pDAO.criarPassageiro(passageiro);
+			return Response.ok(passageiro).header("Authorization", "Bearer " + passageiro.getToken()).build();
 		} catch (Exception e) {
 			return Response.serverError().entity(e).build();
 		}
