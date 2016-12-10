@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 @DiscriminatorColumn(name="TIPO_USUARIO")
@@ -42,6 +44,7 @@ public abstract class Usuario implements Serializable{
 	
 	@OneToOne(fetch = FetchType.LAZY, targetEntity = Token.class, cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "ID_TOKEN")
+	@JsonManagedReference
 	private Token token;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.LAZY)

@@ -49,6 +49,7 @@ public class PassageiroDAO extends GenericDAO<Integer, Passageiro>{
 			
         	return passageiro;
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw e;
 		}   
 	}

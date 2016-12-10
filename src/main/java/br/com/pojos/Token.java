@@ -24,6 +24,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
@@ -55,6 +57,7 @@ public class Token implements Serializable {
 	
 	@OneToOne(cascade = CascadeType.ALL, optional = true,fetch = FetchType.LAZY, orphanRemoval = true)
 	@JoinColumn(name = "ID_USUARIO")
+	@JsonBackReference
 	private Usuario usuario;
 
 	

@@ -61,9 +61,10 @@ public class PassageiroService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response cadastrar(Passageiro passageiro) throws Exception{
 		try {
-			pDAO.criarPassageiro(passageiro);
-			return Response.ok(passageiro).header("Authorization", "Bearer " + passageiro.getToken()).build();
+			passageiro = pDAO.criarPassageiro(passageiro);
+			return Response.status(200).entity(passageiro).header("Authorization", "Bearer " + passageiro.getToken()).build();
 		} catch (Exception e) {
+			e.printStackTrace();
 			return Response.serverError().entity(e).build();
 		}
 	}
