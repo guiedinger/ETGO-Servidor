@@ -7,7 +7,7 @@ import javax.persistence.Query;
 
 
 import br.com.pojos.Passageiro;
-import br.com.pojos.Token;
+
 
 public class PassageiroDAO extends GenericDAO<Integer, Passageiro>{
 
@@ -19,7 +19,7 @@ public class PassageiroDAO extends GenericDAO<Integer, Passageiro>{
 	@SuppressWarnings("unchecked")
 	public List<Passageiro> listarPassageiros(){
 		this.em.getTransaction().begin();
-		Query consulta = this.em.createQuery("Select p from Passageiro as p");
+		Query consulta = this.em.createNamedQuery("listarPassageiros");
 		List<Passageiro> passageiros = consulta.getResultList();
 		this.em.getTransaction().commit();
 		return passageiros;
@@ -37,11 +37,9 @@ public class PassageiroDAO extends GenericDAO<Integer, Passageiro>{
         	if (!verificarExistenciaEmail(passageiro.getEmail())) {
         		throw new Exception("Email já existente no sistema.");
         	}
-        	Token tk = new Token();
         	//passageiro.setPassword();
-        	passageiro.setToken(tk);
+        	passageiro.atualizarToken();
         	passageiro.setSaldo(0.0);
-        	tk.setUsuario(passageiro);
         	
         	this.em.getTransaction().begin();
         	passageiro = this.save(passageiro);
@@ -53,9 +51,21 @@ public class PassageiroDAO extends GenericDAO<Integer, Passageiro>{
 			throw e;
 		}   
 	}
+	public Passageiro login(String userName, String password)throws Exception{
+		Query consulta = this.em.createNamedQuery("buscarPassageiroPorUserName");
+		consulta.setParameter("userName", userName);
+		Passageiro p = (Passageiro) consulta.getSingleResult();
+		if(p == null){
+			throw new Exception("Esse passageiro não existe.");
+		}
+		if(!password.equals(p.getPassword())){
+			throw new Exception("Senha incorreta.");
+		}
+		return p;
+	}
 	
     public boolean verificarExistenciaEmail(String email) {
-        Query consulta = this.em.createNamedQuery("verificar_existencia_email_passageiro");
+        Query consulta = this.em.createNamedQuery("verificarExistenciaEmailPassageiro");
         consulta.setParameter("email", email);
 
         try {

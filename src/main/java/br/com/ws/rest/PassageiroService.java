@@ -3,6 +3,7 @@
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -62,11 +63,26 @@ public class PassageiroService {
 	public Response cadastrar(Passageiro passageiro) throws Exception{
 		try {
 			passageiro = pDAO.criarPassageiro(passageiro);
-			return Response.status(200).entity(passageiro).header("Authorization", "Bearer " + passageiro.getToken()).build();
+			return Response.status(200).entity(passageiro).build();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Response.serverError().entity(e).build();
 		}
+	}
+	
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public Response autenticarPassageiro(@FormParam("userName") String userName,
+			@FormParam("password") String password){
+		try{
+			Passageiro passageiro = pDAO.login(userName, password);	
+			return Response.status(200).entity(passageiro).build();
+		}catch(Exception e){
+			e.printStackTrace();
+			return Response.status(Response.Status.BAD_REQUEST).build();
+		}
+		
 	}
 	
 }

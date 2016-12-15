@@ -1,6 +1,8 @@
 package br.com.pojos;
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.List;
+import java.util.Random;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -25,10 +27,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @DiscriminatorValue("PASSAGEIRO")
 @NamedQueries({
-    @NamedQuery(name = "listar_todos_passagerios", query = "SELECT p FROM Passageiro as p"),
-    @NamedQuery(name = "buscar_passageiro_por_nome", query = "SELECT p FROM Passageiro p WHERE LOWER(p.nome) LIKE :nome"),
-    @NamedQuery(name = "autenticar_passageiro", query = "SELECT p FROM Passageiro p WHERE LOWER(p.email) LIKE :email"),
-    @NamedQuery(name = "verificar_existencia_email_passageiro", query = "SELECT COUNT(p.email) FROM Passageiro p WHERE p.email LIKE :email")
+    @NamedQuery(name = "listarPassageiros", query = "select p from Passageiro as p"),
+    @NamedQuery(name = "buscarPassageiroPorUserName", query = "SELECT p FROM Passageiro p WHERE LOWER(p.userName) LIKE :userName"),
+    @NamedQuery(name = "verificarExistenciaEmailPassageiro", query = "SELECT COUNT(p.email) FROM Passageiro p WHERE p.email LIKE :email")
 })
 @Table(name = "PASSAGEIRO")
 public class Passageiro extends Usuario implements Serializable{
@@ -55,6 +56,9 @@ public class Passageiro extends Usuario implements Serializable{
 	@Column(name = "TIPO")
 	@Enumerated(EnumType.STRING)
 	private TipoPassageiro tipo;
+	
+	@Column(name = "TOKEN", nullable = true, unique = true)
+	private String token;
 	
 	public String getCpf() {
 		return cpf;
@@ -95,11 +99,26 @@ public class Passageiro extends Usuario implements Serializable{
 	public void setTipo(TipoPassageiro tipo) {
 		this.tipo = tipo;
 	}
+	
+    public void atualizarToken() {
+        Random r = new Random();
+        this.token = new BigInteger(130, r).toString(32);
+    }
+    
+	public String getToken() {
+		return token;
+	}
 
-	public Passageiro(Integer idUsuario, String userName, String password, Token token, String nome, String telefone,
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+
+	public Passageiro(Integer idUsuario, String userName, String password, String nome, String telefone,
 			String email, Double saldo, String cpf, List<Avaliacao> avaliacao, List<Transacao> transacao,
 			List<Viagem> viagens, TipoPassageiro tipo) {
-		super(idUsuario, userName, password, token, nome, telefone, email, saldo);
+		super(idUsuario, userName, password, nome, telefone, email, saldo);
 		this.cpf = cpf;
 		this.avaliacao = avaliacao;
 		this.transacao = transacao;

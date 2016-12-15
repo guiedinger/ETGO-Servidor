@@ -17,10 +17,8 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import br.com.dao.TokenDAO;
 import br.com.dao.PassageiroDAO;
 import br.com.dao.SimpleEntityManager;
-import br.com.pojos.Token;
 import br.com.pojos.Passageiro;
 
 
@@ -28,7 +26,6 @@ import br.com.pojos.Passageiro;
 public class LoginService {
 
 	SimpleEntityManager sem = SimpleEntityManager.getInstance();
-	TokenDAO lDAO = new TokenDAO(sem.getEntityManager());
 	PassageiroDAO pDAO = new PassageiroDAO(sem.getEntityManager());
 	
 	
@@ -48,27 +45,27 @@ public class LoginService {
 //		}
 //	}
 //	
-//	@POST
-//	@Produces(MediaType.APPLICATION_JSON)
-//	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-//	public Response autenticarLogin(@FormParam("userName") String userName,
-//									@FormParam("password") String password){
-//		try {
-//			Token l = lDAO.login(userName, password);
-//			l = lDAO.gerarToken(l);
-//
-//			
-//			sem.getEntityManager().getTransaction().begin();
-//			lDAO.save(l);
-//			sem.getEntityManager().getTransaction().commit();
-//			return Response.ok().encoding("UTF-8").header("Authentication", "Bearer " + l.getToken()).entity(l).build();
-//		} catch (Exception ex) {
-////			ex.printStackTrace();
-//			System.out.println(ex.getMessage());
-//            return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
-//		}
-//	}
-//	
+	
+/*	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public Response autenticarLogin(@FormParam("userName") String userName,
+									@FormParam("password") String password){
+		try {
+			
+
+			
+			sem.getEntityManager().getTransaction().begin();
+			
+			sem.getEntityManager().getTransaction().commit();
+			return Response.status(200).entity(l).build();
+		} catch (Exception ex) {
+//			ex.printStackTrace();
+			System.out.println(ex.getMessage());
+            return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
+		}
+	}*/
+	
 //	@POST
 //	@Consumes(MediaType.APPLICATION_JSON)
 //	@Produces(MediaType.APPLICATION_JSON)

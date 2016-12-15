@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -20,6 +22,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @DiscriminatorValue("TRANSPORTADORA")
 @Table(name = "TRANSPORTADORA")
+@NamedQueries({
+	@NamedQuery(name = "listarTransportadoras", query = "select t from Transportadora as t"),
+	@NamedQuery(name = "buscarTransportadoraPorUserName", query = "SELECT p FROM Transportadora p WHERE LOWER(p.userName) LIKE :userName"),
+	@NamedQuery(name = "verificarExistenciaEmailTransportadora", query = "SELECT COUNT(p.email) FROM Transportadora p WHERE p.email LIKE :email")
+})
 public class Transportadora extends Usuario{
 
 	/**
@@ -52,10 +59,10 @@ public class Transportadora extends Usuario{
 		this.cnpj = cnpj;
 	}
 
-	public Transportadora(Integer idUsuario, String userName, String password, Token token, String nome,
+	public Transportadora(Integer idUsuario, String userName, String password, String nome,
 			String telefone, String email, Double saldo, String cnpj, List<Onibus> onibus, List<Motorista> motoristas,
 			List<Linha> linhas) {
-		super(idUsuario, userName, password, token, nome, telefone, email, saldo);
+		super(idUsuario, userName, password, nome, telefone, email, saldo);
 		this.cnpj = cnpj;
 		this.onibus = onibus;
 		this.motoristas = motoristas;

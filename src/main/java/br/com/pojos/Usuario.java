@@ -42,10 +42,6 @@ public abstract class Usuario implements Serializable{
 	@Column(name = "PASSWORD", nullable = false)
 	private String password;
 	
-	@OneToOne(fetch = FetchType.LAZY, targetEntity = Token.class, cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "ID_TOKEN")
-	@JsonManagedReference
-	private Token token;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@JoinColumn(name = "ID_USUARIO", nullable = true)
@@ -129,23 +125,14 @@ public abstract class Usuario implements Serializable{
 		this.password = password;
 	}
 
-	public Token getToken() {
-		return token;
-	}
-
-	public void setToken(Token token) {
-		this.token = token;
-	}
-
 	
 	
-	public Usuario(Integer idUsuario, String userName, String password, Token token, String nome, String telefone,
+	public Usuario(Integer idUsuario, String userName, String password, String nome, String telefone,
 			String email, Double saldo) {
 		super();
 		this.idUsuario = idUsuario;
 		this.userName = userName;
 		this.password = password;
-		this.token = token;
 		this.nome = nome;
 		this.telefone = telefone;
 		this.email = email;
