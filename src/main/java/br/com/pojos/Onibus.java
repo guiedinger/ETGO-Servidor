@@ -14,7 +14,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 public class Onibus implements Serializable{
 
@@ -28,9 +33,9 @@ public class Onibus implements Serializable{
 	@Column(name = "ID_ONIBUS")
 	private Integer idOnibus;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+/*	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,targetEntity = Viagem.class)
 	@JoinColumn(name = "ID_ONIBUS", nullable = false)
-	private List<Viagem> viagens;
+	private List<Viagem> viagens;*/
 	
 //	@ManyToOne(cascade = CascadeType.ALL)
 //	private Transportadora transportadora;
@@ -41,10 +46,15 @@ public class Onibus implements Serializable{
 	@Column(name = "MODELO", nullable = false)
 	private String modelo;
 	
-	@Column(name = "TIPO", nullable = false)
-	@Enumerated(EnumType.STRING)
-	private TipoAchado tipo;
 	
+/*	public List<Viagem> getViagens() {
+		return viagens;
+	}
+
+	public void setViagens(List<Viagem> viagens) {
+		this.viagens = viagens;
+	}*/
+
 	public Integer getIdOnibus() {
 		return idOnibus;
 	}

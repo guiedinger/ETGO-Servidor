@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @DiscriminatorValue("PASSAGEIRO")
 @NamedQueries({
     @NamedQuery(name = "listarPassageiros", query = "select p from Passageiro as p"),
+    @NamedQuery(name = "buscarPassageiroPorToken", query = "SELECT p FROM Passageiro p WHERE LOWER(p.token) LIKE :token"),
     @NamedQuery(name = "buscarPassageiroPorUserName", query = "SELECT p FROM Passageiro p WHERE LOWER(p.userName) LIKE :userName"),
     @NamedQuery(name = "verificarExistenciaEmailPassageiro", query = "SELECT COUNT(p.email) FROM Passageiro p WHERE p.email LIKE :email")
 })
@@ -42,11 +43,11 @@ public class Passageiro extends Usuario implements Serializable{
 	@Column(name = "CPF", unique = true, nullable = false)
 	private String cpf;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "ID_PASSAGEIRO")
 	private List <Avaliacao> avaliacao;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "ID_PASSAGEIRO")
 	private List <Transacao> transacao;
 	

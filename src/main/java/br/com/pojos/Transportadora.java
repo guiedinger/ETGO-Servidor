@@ -7,8 +7,6 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -45,12 +43,38 @@ public class Transportadora extends Usuario{
 	@JoinColumn(name = "ID_TRANSPORTADORA")
 	private List<Motorista> motoristas;
 	
-	@ManyToMany
+	/*@ManyToMany
 	@JoinTable(name = "TRANSPORTADORA_TEM_LINHAS", 
 	joinColumns={@JoinColumn(name = "ID_TRANSPORTADORA")}, 
-	inverseJoinColumns={@JoinColumn(name = "ID_LINHA")})
+	inverseJoinColumns={@JoinColumn(name = "ID_LINHA")})*/
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "ID_TRANSPORTADORA")
 	private List<Linha> linhas;
 	
+	public List<Onibus> getOnibus() {
+		return onibus;
+	}
+
+	public void setOnibus(List<Onibus> onibus) {
+		this.onibus = onibus;
+	}
+
+	public List<Motorista> getMotoristas() {
+		return motoristas;
+	}
+
+	public void setMotoristas(List<Motorista> motoristas) {
+		this.motoristas = motoristas;
+	}
+
+	public List<Linha> getLinhas() {
+		return linhas;
+	}
+
+	public void setLinhas(List<Linha> linhas) {
+		this.linhas = linhas;
+	}
+
 	public String getCnpj() {
 		return cnpj;
 	}

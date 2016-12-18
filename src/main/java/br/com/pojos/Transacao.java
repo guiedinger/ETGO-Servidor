@@ -2,12 +2,11 @@ package br.com.pojos;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,26 +32,39 @@ public class Transacao implements Serializable{
 	private Date data;
 	
 	@Column(name = "VALOR", nullable = false)
-	private float valor;
+	private Double valor;
 	
 	@Column(name = "TIPO")
 	@Enumerated(EnumType.STRING)
 	private TipoTransacao tipo;
 	
+	
+	public Date getData() {
+		return data;
+	}
+	public void setData(Date data) {
+		this.data = data;
+	}
+	public TipoTransacao getTipo() {
+		return tipo;
+	}
+	public void setTipo(TipoTransacao tipo) {
+		this.tipo = tipo;
+	}
 	public Integer getIdTransacao() {
 		return idTransacao;
 	}
 	public void setIdTransacao(Integer idTransacao) {
 		this.idTransacao = idTransacao;
 	}
-	public float getValor() {
+	public Double getValor() {
 		return valor;
 	}
-	public void setValor(float valor) {
+	public void setValor(Double valor) {
 		this.valor = valor;
 	}
 	
-	public Transacao(Integer idTransacao, Integer valor) {
+	public Transacao(Integer idTransacao, Double valor) {
 		super();
 		this.idTransacao = idTransacao;
 		this.valor = valor;

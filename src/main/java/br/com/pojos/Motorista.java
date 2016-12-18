@@ -34,9 +34,9 @@ public class Motorista implements Serializable{
 	@Column(name = "ID_MOTORISTA")
 	private Integer idMotorista;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+/*	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Viagem.class)
 	@JoinColumn(name = "ID_MOTORISTA", nullable = false)
-	private List<Viagem> viagem;
+	private List<Viagem> viagem;*/
 
 //	@ManyToOne(cascade = CascadeType.ALL)
 //	private Transportadora transportadora;
@@ -47,8 +47,55 @@ public class Motorista implements Serializable{
 	@Column(name = "CPF", nullable = false)
 	private String cpf;
 	
-
 	
+	public Integer getIdMotorista() {
+		return idMotorista;
+	}
+
+
+
+	public void setIdMotorista(Integer idMotorista) {
+		this.idMotorista = idMotorista;
+	}
+
+
+/*
+	public List<Viagem> getViagem() {
+		return viagem;
+	}
+
+
+
+	public void setViagem(List<Viagem> viagem) {
+		this.viagem = viagem;
+	}*/
+
+
+
+	public String getNome() {
+		return nome;
+	}
+
+
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+
+
+	public String getCpf() {
+		return cpf;
+	}
+
+
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+
+
 	public Motorista(){
 		
 	}

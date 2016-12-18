@@ -12,9 +12,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 public class Linha implements Serializable{
 
@@ -28,12 +32,12 @@ public class Linha implements Serializable{
 	@Column(name = "ID_LINHA")
 	private Integer idLinha;
 	
-	@ManyToMany(mappedBy = "linhas")
-	private List<Transportadora> transportadora;
+	/*@ManyToMany(mappedBy = "linhas")
+	private List<Transportadora> transportadora;*/
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	/*@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Viagem.class)
 	@JoinColumn(name = "ID_LINHA", nullable = false)
-	private List<Viagem> viagens;
+	private List<Viagem> viagens;*/
 	
 	@Column(name = "DESCRICAO", nullable = false)
 	private String descricao;
@@ -42,6 +46,20 @@ public class Linha implements Serializable{
 	@Enumerated(EnumType.STRING)
 	private TipoServico tipo;
 	
+	
+	
+/*	public List<Viagem> getViagens() {
+		return viagens;
+	}
+	public void setViagens(List<Viagem> viagens) {
+		this.viagens = viagens;
+	}*/
+	public TipoServico getTipo() {
+		return tipo;
+	}
+	public void setTipo(TipoServico tipo) {
+		this.tipo = tipo;
+	}
 	public Integer getIdLinha() {
 		return idLinha;
 	}

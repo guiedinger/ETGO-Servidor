@@ -41,7 +41,7 @@ public class EmpresaService {
 	}
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/id")
+	@Path("/{id}")
 	public Empresa consultar(@PathParam("id") Integer id){
 		int exceptionNumber = 500;
 		try{

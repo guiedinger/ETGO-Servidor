@@ -3,8 +3,7 @@ package br.com.dao;
 import java.lang.reflect.ParameterizedType;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+
 
 public class GenericDAO<PK, T> {
 	

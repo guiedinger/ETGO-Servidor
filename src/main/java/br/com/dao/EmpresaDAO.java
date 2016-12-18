@@ -6,7 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import br.com.pojos.Empresa;
-import br.com.pojos.Empresa;
+
 
 public class EmpresaDAO extends GenericDAO<Integer,Empresa> {
 

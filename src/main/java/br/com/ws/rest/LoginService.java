@@ -17,9 +17,13 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import br.com.dao.EmpresaDAO;
 import br.com.dao.PassageiroDAO;
 import br.com.dao.SimpleEntityManager;
+import br.com.dao.TransportadoraDAO;
+import br.com.pojos.Empresa;
 import br.com.pojos.Passageiro;
+import br.com.pojos.Transportadora;
 
 
 @Path("/login")
@@ -27,63 +31,38 @@ public class LoginService {
 
 	SimpleEntityManager sem = SimpleEntityManager.getInstance();
 	PassageiroDAO pDAO = new PassageiroDAO(sem.getEntityManager());
+	TransportadoraDAO tDAO = new TransportadoraDAO(sem.getEntityManager());
+	EmpresaDAO eDAO = new EmpresaDAO(sem.getEntityManager());
 	
+
 	
-//	@GET
-//	@Produces(MediaType.APPLICATION_JSON)
-//	public List<Token> listar(){
-//		int exception = 500;
-//		try {
-//			List<Token> logins = lDAO.listarLogins();
-//			if(logins.isEmpty()){
-//				exception = 404;
-//				throw new Exception("Nenhum login cadastrado!");
-//			}
-//			return logins;
-//		} catch (Exception e) {
-//			throw new WebApplicationException(exception);
-//		}
-//	}
-//	
-	
-/*	@POST
+	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public Response autenticarLogin(@FormParam("userName") String userName,
 									@FormParam("password") String password){
+		String tipo = "Passageiro";
 		try {
-			
+			Passageiro passageiro = pDAO.login(userName, password);	
+			return Response.status(200).entity(passageiro).header("Authorization", tipo ).build();
 
-			
-			sem.getEntityManager().getTransaction().begin();
-			
-			sem.getEntityManager().getTransaction().commit();
-			return Response.status(200).entity(l).build();
-		} catch (Exception ex) {
-//			ex.printStackTrace();
-			System.out.println(ex.getMessage());
-            return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
+		} catch (Exception p) {
+			try{
+				tipo = "Transportadora";
+				Transportadora Transportadora = tDAO.login(userName, password);	
+				return Response.status(200).entity(Transportadora).header("Authorization", tipo ).build();
+			}catch(Exception t) {
+				try{
+					tipo = "Empresa";
+					Empresa Empresa = eDAO.login(userName, password);	
+					return Response.status(200).entity(Empresa).header("Authorization", tipo ).build();
+				}catch(Exception e){
+					e.printStackTrace();
+					return Response.status(Response.Status.BAD_REQUEST).build();
+				}
+			}
 		}
-	}*/
-	
-//	@POST
-//	@Consumes(MediaType.APPLICATION_JSON)
-//	@Produces(MediaType.APPLICATION_JSON)
-//	public Response cadastrar(Token login, Passageiro passageiro){
-//		try {
-//			login = lDAO.gerarToken(login);
-//
-//			sem.getEntityManager().getTransaction().begin();
-//			lDAO.create(login);
-//			pDAO.create(passageiro);
-//			sem.getEntityManager().getTransaction().commit();
-//			
-//			return	Response.ok(login).header("Authorization", "Bearer "+ login.getToken()).build();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			throw new WebApplicationException(500);
-//		}
-//	}
+	}
 	
 	
 }
